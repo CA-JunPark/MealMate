@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
+        <!-- <link rel="stylesheet" href="new.css" /> -->
+        <!-- <link rel="stylesheet" href="./index.css" /> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!-- navigation bar -->
+        <header>
+            <ul class="nav">
+                <div class="navLeft">
+                    <li class="title">
+                        Meal Mate
+                    </li>
+                    <a href="home.html"><li>Home</li></a>
+                    <a href="myMeals.html"><li>My Meals</li></a>
+                </div>
+                <div class="userProfile">
+                    <a href="profile.html"><li>My Profile</li></a>
+                    <a href="profile.html"><img src="" class="userProfilePic"></a>
+                </div>
+            </ul>
+        </header>
+        <h1>Make Post</h1>
+        <div class="main">
+            <div class="makePost">
+                <div class="flexRow">
+                    <div class="inputGroup">
+                        <label for="where">Where?</label>
+                        <select id="where">
+                            <option value="">--Select One--</option>
+                            <option value="mainCaf">Main Cafeteria</option>
+                            <option value="bookstoreCaf">Bookstore Cafeteria</option>
+                            <option value="lowerCaf">Lower Cafeteria</option>
+                            <option value="starbucks">Starbucks</option>
+                        </select>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="time">When?</label>
+                        <input type="time" id="time" name="time">
+                    </div>
+                </div>
+                <div class="flexRow">
+                    <div class="inputGroup">
+                        <label for="personMin">Minimum People?</label>
+                        <input type="number" id="personMin" name="personMin" min="2" max="10" value="2">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="personMax">Maximum People?</label>
+                        <input type="number" id="personMax" name="personMax" min="2" max="10" value="2">
+                    </div>
+                </div>
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes"></textarea>
+                <div class="cancelFinishButtons">
+                    <a href="{% url "home" %}"><button class="cancelButton">Cancel</button></a>
+                    <button id="create" class="finishButton">Finish</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+$.ajaxSetup({
+    headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+$('#create').click(function () {
+
+    console.log("CLICK")
+    
+    let owner = "{{user}}"
+    let where = $('#where').val();
+    let when = $('#time').val();
+    let note = $('#notes').val();
+    let max_user_num = $('#personMax').val();
+    
+    $.ajax({
+        url: "{% url "createPost" %}",
+        data: {
+            owner: owner,
+            where: where,
+            when: when,
+            note: note,
+            max_user_num: max_user_num,
+        },
+        method: "POST",
+        dataType: "json",
+        success: function (data){
+            alert("Success!");
+            console.log("AAA");
+            location.replace('{%url 'home'%}');
+        },
+        error:function (request, status, error){
+            let data = JSON.parse(request.responseText);
+            alert(data.message);
+        }
+    }); 
+});
+</script>
+
+<style>
+    html {
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        height: 80px
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+        padding: 8px;
+        margin-right: 25px;
+    }
+
+    .nav {
+        margin-top: -5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .userProfile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: -5px;
+    }
+
+    .userProfilePic {
+        width: 80px;
+        height: 80px;
+        border: 2px solid white;
+        border-radius: 50%;
+    }
+
+    .nav li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .nav a {
+        text-align: center;
+        padding: 4px;
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+    .nav a:hover {
+        text-decoration: underline;
+    }
+
+    h1 {
+        padding-top: 100px;
+        color: white;
+        text-align: center;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .makePost {
+        background-color: rgb(0, 0, 0, 0.15);
+        border-radius: 45px;
+        width: 800px;
+        padding: 40px 40px 15px 40px;
+        margin-bottom: 40px;
+    }
+
+    label {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .inputGroup {
+       width: 50%;
+    }
+
+    .flexRow {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 15px;
+    }
+
+    select, input[type="time"], input[type="number"] {
+        font-size: 1em;
+        width: 60%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    input[type="number"] {
+        width: 30%;
+    }
+
+    #notes {
+        resize: none;
+        font-size: 1.5em;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        width: 100%;
+        height: 300px;
+        box-sizing: border-box;
+    }
+
+    .cancelFinishButtons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .cancelButton, .finishButton {
+        color: white;
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 4px white;
+        border-radius: 30px;
+        transition: padding;
+        margin-right: 10px;
+    }
+
+    .cancelButton:hover, .finishButton:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    } 
+
+    
+</style>
+

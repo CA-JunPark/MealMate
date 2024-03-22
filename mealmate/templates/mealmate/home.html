@@ -10,11 +10,17 @@
         <!-- navigation bar -->
         <header>
             <ul class="nav">
-                <li class="title">
-                    Meal Mate
-                </li>
-                <a href="home.html"><li>Home</li></a>
-                <a href="myPosts.html"><li>My Posts</li></a>
+                <div class="navLeft">
+                    <li class="title">
+                        Meal Mate
+                    </li>
+                    <a href="home.html"><li>Home</li></a>
+                    <a href="myMeals.html"><li>My Meals</li></a>
+                </div>
+                <div class="userProfile">
+                    <a href="profile.html"><li>My Profile</li></a>
+                    <a href="profile.html"><img src="Jon.gif" class="userProfilePic"></a>
+                </div>
             </ul>
         </header>
         <h1>Home</h1>
@@ -34,65 +40,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="cardProfile">
-                    <img src="Jon.gif" class="cardProfilePhoto">
-                    <p>Username</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
-                    <div class="cardMoreInfoContainer">
-                        <button class="cardMoreInfoButton">More Info</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="cardProfile">
-                    <img src="Jon.gif" class="cardProfilePhoto">
-                    <p>Username</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
-                    <div class="cardMoreInfoContainer">
-                        <button class="cardMoreInfoButton">More Info</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="cardProfile">
-                    <img src="Jon.gif" class="cardProfilePhoto">
-                    <p>Username</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
-                    <div class="cardMoreInfoContainer">
-                        <button class="cardMoreInfoButton">More Info</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="cardProfile">
-                    <img src="Jon.gif" class="cardProfilePhoto">
-                    <p>Username</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
-                    <div class="cardMoreInfoContainer">
-                        <button class="cardMoreInfoButton">More Info</button>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="footer">
-            <a href="post.html"><button class="makePostButton">Make Post</button></a>
+            <a href="{% url 'createPost'%}"><button class="makePostButton">Make Post</button></a>
         </div>
     </body>
 </html>
@@ -119,6 +69,7 @@
         color: white;
         padding: 10px;
         text-align: left;
+        height: 80px
     }
 
     .title {
@@ -129,12 +80,31 @@
     }
 
     .nav {
+        margin-top: -5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         list-style-type: none;
         padding: 0;
     }
 
+    .userProfile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: -5px;
+    }
+
+    .userProfilePic {
+        width: 80px;
+        height: 80px;
+        border: 2px solid white;
+        border-radius: 50%;
+    }
+
     .nav li {
         display: inline;
+        margin-right: 10px;
     }
 
     .nav a {

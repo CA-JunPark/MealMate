@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
+        <!-- <link rel="stylesheet" href="new.css" /> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="main">
+            <h1><i>MEAL MATE</i></h1>
+            <div class="loginContainer">
+                <h2>Login</h2>
+                <form id="login">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <input id="submitInput" type="submit" value="Login">
+                </form>
+                <hr>
+                <p>or</p>
+                <a href="{% url 'createAccount'%}"><b>Create an Account</b></a>
+            </div>
+        </main>
+    </body>
+</html>
+
+<style>
+    html {
+        font-family: arial, sans-serif;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+    }
+
+    h1 {
+        background-color: white;
+        border-radius: 30px;
+        display: inline-block;
+        padding: 10px 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loginContainer {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 70px;
+        width: 40%;
+    }
+
+    h2 {
+        margin-top: 30px;
+    }
+    
+    #login {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        margin-top: 20px;
+    }
+
+    label {
+        text-align: left;
+        width: 60%;
+        margin-bottom: 5px;
+    }
+
+    input {
+        margin-bottom: 30px;
+        font-size: 1em;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        margin-bottom: 30px;
+        box-sizing: border-box;
+        width: 60%;
+    }
+    
+    #submitInput {
+        margin: 30px auto 40px auto;
+        font-size: 2em;
+        color: white;
+        padding: 10px 20px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 4px white;
+        border-radius: 30px;
+        width: 35%;
+    }
+
+    #submitInput:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    } 
+
+    hr {
+        width: 80%;
+        border: none;
+        border-top: 2px solid rgb(255, 255, 255, 0.5);
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+        margin-bottom: 40px;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+
+</style>
+
+<script>
+$.ajaxSetup({
+    headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+$('#submitInput').on('click', ()=>{
+    event.preventDefault(); 
+    
+    let email = $('#email').val();
+    let password = $('#password').val();
+    
+    console.log(email, password);
+    
+    $.ajax({
+        url: "{% url "login" %}",
+        data: {
+            email: email,
+            password: password
+        },
+        method: "POST",
+        dataType: "json",
+        success: function (data){
+            alert("Success!");
+            console.log("AAA");
+            location.replace('{%url 'home'%}');
+        },
+        error:function (request, status, error){
+            let data = JSON.parse(request.responseText);
+            alert(data.message);
+        }
+    }); 
+});
+</script>

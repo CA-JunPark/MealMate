@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
+        <!-- <link rel="stylesheet" href="new.css" /> -->
+        <!-- <link rel="stylesheet" href="./index.css" /> -->
+    </head>
+    <body>
+        <!-- navigation bar -->
+        <header>
+            <ul class="nav">
+                <div class="navLeft">
+                    <li class="title">
+                        Meal Mate
+                    </li>
+                    <a href="home.html"><li>Home</li></a>
+                    <a href="myMeals.html"><li>My Meals</li></a>
+                </div>
+                <div class="userProfile">
+                    <a href="profile.html"><li>My Profile</li></a>
+                    <a href="profile.html"><img src="Jon.gif" class="userProfilePic"></a>
+                </div>
+            </ul>
+        </header>
+        <h1>My Meals</h1>
+        <div class="main">
+            <!-- Card containers -->
+            <div class="card">
+                <div class="cardProfile">
+                    <img src="CriossantCarl.jpg" class="cardProfilePhoto">
+                    <p>Username</p>
+                </div>
+                <div class="cardInfo">
+                    <p>Where:</p>
+                    <p>When:</p>
+                    <p>How Many:</p>
+                    <div class="cardMoreInfoContainer">
+                        <a href="postMoreInfo.html"><button class="cardMoreInfoButton">More Info</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardProfile">
+                    <img src="CriossantCarl.jpg" class="cardProfilePhoto">
+                    <p>Username</p>
+                </div>
+                <div class="cardInfo">
+                    <p>Where:</p>
+                    <p>When:</p>
+                    <p>How Many:</p>
+                    <div class="cardMoreInfoContainer">
+                        <button class="cardMoreInfoButton">More Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardProfile">
+                    <img src="CriossantCarl.jpg" class="cardProfilePhoto">
+                    <p>Username</p>
+                </div>
+                <div class="cardInfo">
+                    <p>Where:</p>
+                    <p>When:</p>
+                    <p>How Many:</p>
+                    <div class="cardMoreInfoContainer">
+                        <button class="cardMoreInfoButton">More Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="post.html"><button class="makePostButton">Make Post</button></a>
+        </div>
+    </body>
+</html>
+<script>
+// JavaScript event listeners
+</script>
+<style>
+    html {
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        height: 80px
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+        padding: 8px;
+        margin-right: 25px;
+    }
+
+    .nav {
+        margin-top: -5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .userProfile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: -5px;
+    }
+
+    .userProfilePic {
+        width: 80px;
+        height: 80px;
+        border: 2px solid white;
+        border-radius: 50%;
+    }
+
+    .nav li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .nav a {
+        text-align: center;
+        padding: 4px;
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+    .nav a:hover {
+        text-decoration: underline;
+    }
+
+    h1 {
+        padding-top: 100px;
+        color: white;
+        text-align: center;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        padding-bottom: 100px;
+    }
+
+    .card {
+        display: flex;
+        background-color: rgb(0, 0, 0, 0.15);
+        border-radius: 45px;
+        padding: 0px;
+        margin: 25px;
+        width: 600px;
+    }
+
+    .card p {
+        background-color: #FFFFFF;
+        border-radius: 30px;
+        padding: 10px;
+    }
+
+    .cardProfile p {
+        padding: 15px;
+        margin: -5px auto;
+    }
+
+    .cardProfile {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .cardProfilePhoto {
+        width: 175px;
+        height: 175px;
+        border: solid 5px white;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .cardInfo {
+        flex: 1;
+        padding: 20px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cardInfo p {
+        margin-bottom: 0px;
+    }
+
+    .cardMoreInfoContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .cardMoreInfoButton {
+        color: white;
+        font-size: 1.2em;
+        padding: 10px 20px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 4px white;
+        border-radius: 30px;
+        transition: padding;
+    }
+
+    .cardMoreInfoButton:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    } 
+    
+    .footer {
+        background: linear-gradient(to bottom,  rgba(0, 0, 0, 0),  rgba(0, 0, 0, 0.4));
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        padding-bottom: 20px;
+    }
+
+    .makePostButton {
+        margin-top: -102px;
+        color: white;
+        font-size: 2em;
+        padding: 10px 20px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 4px white;
+        border-radius: 30px;
+        transition: padding;
+    }
+
+    .makePostButton:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    } 
+    
+</style>

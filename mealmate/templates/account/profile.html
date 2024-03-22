@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
+        <!-- <link rel="stylesheet" href="new.css" /> -->
+        <!-- <link rel="stylesheet" href="./index.css" /> -->
+    </head>
+    <body>
+        <!-- navigation bar -->
+        <header>
+            <ul class="nav">
+                <div class="navLeft">
+                    <li class="title">
+                        Meal Mate
+                    </li>
+                    <a href="home.html"><li>Home</li></a>
+                    <a href="myMeals.html"><li>My Meals</li></a>
+                </div>
+                <div class="userProfile">
+                    <a href="profile.html"><li>My Profile</li></a>
+                    <a href="profile.html"><img src="Jon.gif" class="userProfilePic"></a>
+                </div>
+            </ul>
+        </header>
+        <h1>Profile</h1>
+        <div class="main">
+            <div class="infoCard">
+                <div class="editProfileContainer">
+                    <!-- This would also let them change email/password -->
+                    <button class="editProfileButton">Edit Profile</button>
+                </div>
+                <div class="cardProfile">
+                    <img src="Jon.gif" class="cardProfilePhoto">
+                    <p>Username</p>
+                </div>
+                <div class="informationContainer">
+                    <div class="bio">
+                        <p>Bio:</p>
+                        <div class="bioBox">**THIS IS WHERE THERE WILL BE BIO**</div>
+                    </div>
+                    <div class="info">
+                        <div class="infoBox">
+                            Gender: M
+                        </div>
+                        <div class="infoBox">
+                            Language(s): English/Korean
+                        </div>
+                        <div class="infoBox">
+                            Country: Canada
+                        </div>
+                        <div class="infoBox">
+                            TWU Year: 3
+                        </div>
+                        <div class="infoBox">
+                            Major(s): Computer Science
+                        </div>
+                        <div class="infoBox">
+                            Minor(s): Math
+                        </div>
+                    </div>
+                </div>
+                <div class="backJoinButtons">
+                    <a href="home.html"><button class="backButton">Back</button></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+// JavaScript event listeners
+</script>
+<style>
+    html {
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        height: 80px
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+        padding: 8px;
+        margin-right: 25px;
+    }
+
+    .nav {
+        margin-top: -5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .userProfile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: -5px;
+    }
+
+    .userProfilePic {
+        width: 80px;
+        height: 80px;
+        border: 2px solid white;
+        border-radius: 50%;
+    }
+
+    .nav li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .nav a {
+        text-align: center;
+        padding: 4px;
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+    .nav a:hover {
+        text-decoration: underline;
+    }
+
+    h1 {
+        padding-top: 100px;
+        color: white;
+        text-align: center;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .infoCard {
+        position: relative;
+        background-color: rgb(0, 0, 0, 0.15);
+        border-radius: 45px;
+        width: 800px;
+        padding: 15px 40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .editProfileContainer {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+    }
+
+    .editProfileButton {
+        color: black;
+        font-size: 1em;
+        padding: 5px;
+        background: white;
+        border: solid 2px white;
+        border-radius: 30px;
+        transition: padding;
+        margin-right: 10px;
+    }
+
+    .editProfileButton:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+
+    .cardProfile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .cardProfile p {
+        text-align: center;
+        background-color: white;
+        border-radius: 30px;
+        padding: 15px;
+        margin-top: -5px;
+        justify-content: center;
+        align-items: center;
+        max-width: 200px;
+    }
+
+    .cardProfilePhoto {
+        width: 200px;
+        height: 200px;
+        border: solid 5px white;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .informationContainer {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .info {
+        flex: 1;
+        padding-left: 40px;
+    }
+
+    .info p {
+        margin-bottom: 5px;
+    } 
+
+    .infoBox {
+        background-color: white;
+        min-width: 80%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .bio {
+        flex: 2;
+    }
+
+    .bio p {
+        margin-bottom: 10px;
+    }
+
+    .bioBox {
+        background-color: white;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        width: 100%;
+        height: 300px;
+        box-sizing: border-box;
+    }
+
+    .backJoinButtons {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .backButton, .joinButton {
+        color: white;
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 4px white;
+        border-radius: 30px;
+        transition: padding;
+        margin-right: 10px;
+    }
+
+    .backButton:hover, .joinButton:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    } 
+
+    
+</style>
+
