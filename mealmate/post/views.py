@@ -57,3 +57,27 @@ class PostMoreInfo(APIView):
         post_object.save()
     
         return Response(status=200, data=dict(message="Joined"))
+
+class MyMeals(APIView):
+    def get(self, request):
+        
+        user = request.user
+        
+        posts = Post.objects.all().order_by('owner')
+        
+        myPosts = []
+        
+        for post in posts:
+            if user.email in post.current_users:
+                myPosts.append(dict(id=post.id,
+                                  owner=post.owner,
+                                  owner_name=user.username,
+                                  photo=user.photo,
+                                  where=post.where,
+                                  Note=post.Note,
+                                  current_user_number=post.current_user_number,
+                                  current_users=post.current_users,
+                                  max_user_num=post.max_user_num,
+                                  when=post.when))
+        
+        return render(request, 'post/myMeals.html', context={"posts":myPosts})

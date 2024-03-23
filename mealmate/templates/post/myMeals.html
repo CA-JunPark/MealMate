@@ -15,7 +15,7 @@
                         Meal Mate
                     </li>
                     <a href="{% url 'home' %}"><li>Home</li></a>
-                    <a href="myMeals.html"><li>My Meals</li></a>
+                    <a href="{% url 'myMeals' %}"><li>My Meals</li></a>
                 </div>
                 <div class="userProfile">
                     <a href="{% url 'logout' %}">Logout</a></li> 
@@ -25,50 +25,27 @@
             </ul>
         </header>
         <h1>My Meals</h1>
-        <div class="main">
-            <!-- Card containers -->
+        <div class="main" >
+        {% if posts.length == 0 %}
+            <h1>There is no Post</h1>
+        {% else %}
+            {% for post in posts %}
             <div class="card">
                 <div class="cardProfile">
-                    <img src="CriossantCarl.jpg" class="cardProfilePhoto">
-                    <p>Username</p>
+                    <img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px"> <!--new class for the photo in post-->
+                    <p style="margin:11px auto">{{post.owner_name}}</p>
                 </div>
                 <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
+                    <p>Where: {{post.where}}</p>
+                    <p>When: {{post.when}}</p>
+                    <p>{{post.current_user_number}} / {{post.max_user_num}}</p>
                     <div class="cardMoreInfoContainer">
-                        <a href="postMoreInfo.html"><button class="cardMoreInfoButton">More Info</button></a>
+                        <a href="{% url 'postMoreInfo'%}?id={{post.id}}"><button class="cardMoreInfoButton">More Info</button></a>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="cardProfile">
-                    <img src="CriossantCarl.jpg" class="cardProfilePhoto">
-                    <p>Username</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
-                    <div class="cardMoreInfoContainer">
-                        <button class="cardMoreInfoButton">More Info</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="cardProfile">
-                    <img src="CriossantCarl.jpg" class="cardProfilePhoto">
-                    <p>Username</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where:</p>
-                    <p>When:</p>
-                    <p>How Many:</p>
-                    <div class="cardMoreInfoContainer">
-                        <button class="cardMoreInfoButton">More Info</button>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+        {% endif %}
         </div>
         <div class="footer">
             <a href="post.html"><button class="makePostButton">Make Post</button></a>
@@ -227,6 +204,7 @@
         border: solid 4px white;
         border-radius: 30px;
         transition: padding;
+        margin-top: 10px
     }
 
     .cardMoreInfoButton:hover {
