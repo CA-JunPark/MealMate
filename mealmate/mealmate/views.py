@@ -14,10 +14,11 @@ class Home(APIView):
         
         posts = []
         for post in posts_objects:
-            photo = Account.objects.get(email=post.owner).photo
+            owner_object = Account.objects.get(email=post.owner)
             posts.append(dict(id = post.id, 
                               owner=post.owner, 
-                              photo=photo, 
+                              owner_name=owner_object.username,
+                              photo=owner_object.photo, 
                               where=post.where,
                               Note=post.Note,
                               current_user_number=post.current_user_number,
