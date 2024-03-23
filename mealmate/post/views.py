@@ -30,5 +30,11 @@ class PostMoreInfo(APIView):
         postID = request.GET.get('id')
         user = request.user
         selectedPost = Post.objects.get(id=postID)
-        return render(request, 'post/postMoreInfo.html', context={'post':selectedPost})
+        owner = Account.objects.get(email=selectedPost.owner)
+        name = owner.username
+        photo = owner.photo
+        return render(request, 'post/postMoreInfo.html', context={'post':selectedPost, 'photo':photo, 'name':name})
     
+    def post(self, request):
+        """join"""
+        
