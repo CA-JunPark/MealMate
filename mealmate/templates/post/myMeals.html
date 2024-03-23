@@ -14,12 +14,13 @@
                     <li class="title">
                         Meal Mate
                     </li>
-                    <a href="home.html"><li>Home</li></a>
+                    <a href="{% url 'home' %}"><li>Home</li></a>
                     <a href="myMeals.html"><li>My Meals</li></a>
                 </div>
                 <div class="userProfile">
-                    <a href="profile.html"><li>My Profile</li></a>
-                    <a href="profile.html"><img src="Jon.gif" class="userProfilePic"></a>
+                    <a href="{% url 'logout' %}">Logout</a></li> 
+                    <p style="margin-right:5px">{{user.username}}</p> <!--need to change css later-->
+                    <a href="{% url 'profile'%}?userEmail={{user.email}}"><img src={{user.photo}} class="userProfilePic"></a>
                 </div>
             </ul>
         </header>

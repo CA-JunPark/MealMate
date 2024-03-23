@@ -58,3 +58,9 @@ class LogOut(APIView):
         request.session.flush()
         logout(request)
         return render(request, "account/login.html")
+
+class Profile(APIView):
+    def get(self, request):
+        userEmail = request.GET.get('userEmail')
+        user = Account.objects.get(email=userEmail)
+        return render(request, "account/profile.html", context={'user':user})

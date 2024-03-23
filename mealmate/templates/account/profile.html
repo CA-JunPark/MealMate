@@ -5,6 +5,7 @@
         <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
         <!-- <link rel="stylesheet" href="new.css" /> -->
         <!-- <link rel="stylesheet" href="./index.css" /> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body>
         <!-- navigation bar -->
@@ -14,12 +15,13 @@
                     <li class="title">
                         Meal Mate
                     </li>
-                    <a href="home.html"><li>Home</li></a>
+                    <a href="{% url 'home' %}"><li>Home</li></a>
                     <a href="myMeals.html"><li>My Meals</li></a>
                 </div>
                 <div class="userProfile">
-                    <a href="profile.html"><li>My Profile</li></a>
-                    <a href="profile.html"><img src="Jon.gif" class="userProfilePic"></a>
+                    <a href="{% url 'logout' %}">Logout</a></li> 
+                    <p style="margin-right:5px">{{user.username}}</p> <!--need to change css later-->
+                    <a href="{% url 'profile'%}?userEmail={{user.email}}"><img src={{user.photo}} class="userProfilePic"></a>
                 </div>
             </ul>
         </header>
@@ -31,37 +33,37 @@
                     <button class="editProfileButton">Edit Profile</button>
                 </div>
                 <div class="cardProfile">
-                    <img src="Jon.gif" class="cardProfilePhoto">
-                    <p>Username</p>
+                    <img src="{{user.photo}}" class="cardProfilePhoto">
+                    <p>{{user.username}}</p>
                 </div>
                 <div class="informationContainer">
                     <div class="bio">
                         <p>Bio:</p>
-                        <div class="bioBox">**THIS IS WHERE THERE WILL BE BIO**</div>
+                        <div class="bioBox">**THIS IS WHERE THERE WILL BE BIO**</div> <!--NEED field in Account-->
                     </div>
                     <div class="info">
                         <div class="infoBox">
-                            Gender: M
+                            Gender: M  <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Language(s): English/Korean
+                            Language(s): English/Korean <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Country: Canada
+                            Country: Canada <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            TWU Year: 3
+                            TWU Year: 3 <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Major(s): Computer Science
+                            Major(s): Computer Science <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Minor(s): Math
+                            Minor(s): Math <!--NEED field in Account-->
                         </div>
                     </div>
                 </div>
                 <div class="backJoinButtons">
-                    <a href="home.html"><button class="backButton">Back</button></a>
+                    <button class="backButton" onclick="window.history.back()">Back</button>
                 </div>
             </div>
         </div>
