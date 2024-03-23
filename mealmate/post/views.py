@@ -28,5 +28,7 @@ class CreatePost(APIView):
 class PostMoreInfo(APIView):
     def get(self, request):
         postID = request.GET.get('id')
-        print(postID)
-        return render(request, 'post/postMoreInfo.html')
+        user = request.user
+        selectedPost = Post.objects.get(id=postID)
+        return render(request, 'post/postMoreInfo.html', context={'post':selectedPost})
+    

@@ -5,6 +5,7 @@
         <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
         <!-- <link rel="stylesheet" href="new.css" /> -->
         <!-- <link rel="stylesheet" href="./index.css" /> -->
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body>
         <!-- navigation bar -->
@@ -14,12 +15,13 @@
                     <li class="title">
                         Meal Mate
                     </li>
-                    <a href="home.html"><li>Home</li></a>
+                    <a href="{% url 'home' %}"><li>Home</li></a>
                     <a href="myMeals.html"><li>My Meals</li></a>
                 </div>
                 <div class="userProfile">
-                    <a href="profile.html"><li>My Profile</li></a>
-                    <a href="profile.html"><img src="Jon.gif" class="userProfilePic"></a>
+                    <a href="{% url 'logout' %}">Logout</a></li>
+                    <p style="margin-right:5px">{{user.username}}</p> <!--need to change css later-->
+                    <a href="profile.html"><img src={{user.photo}} class="userProfilePic"></a>
                 </div>
             </ul>
         </header>
@@ -27,22 +29,22 @@
         <div class="main">
             <div class="infoCard">
                 <div class="cardProfile">
-                    <img src="Jon.gif" class="cardProfilePhoto">
-                    <p>Username</p>
+                    <img src={{user.photo}} class="cardProfilePhoto">
+                    <p>{{user.username}}</p>
                 </div>
                 <div class="informationContainer">
                     <div class="info">
                         <p>Where:</p>
                         <div class="infoBox">
-                            Cafeteria
+                            {{post.where}}
                         </div>
                         <p>When:</p>
                         <div class="infoBox">
-                            1:15pm
+                            {{post.when}}
                         </div>
                         <p><b>Current Persons:</b></p>
                         <div class="infoBox">
-                            <b>4</b>
+                            <b>{{post.current_user_number}}</b>
                         </div>
                         <p>Minimum Persons:</p>
                         <div class="infoBox">
@@ -50,16 +52,16 @@
                         </div>
                         <p>Maximum Persons:</p>
                         <div class="infoBox">
-                            8
+                            {{post.max_user_num}}
                         </div>
                     </div>
                     <div class="notes">
                         <p>Notes:</p>
-                        <div class="noteBox">**THIS IS WHERE THERE WILL BE NOTES**</div>
+                        <div class="noteBox">{{post.Note}}</div>
                     </div>
                 </div>
                 <div class="backJoinButtons">
-                    <a href="#" onclick="window.history.back(); return false;">Back</a><button class="backButton">Back</button></a>
+                    <a href="{%url 'home'%}"><button class="backButton">Back</button></a>
                     <button class="joinButton">Join</button>
                 </div>
             </div>

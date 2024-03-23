@@ -19,8 +19,8 @@
                     <a href="myMeals.html"><li>My Meals</li></a>
                 </div>
                 <div class="userProfile">
-                    <a href="{% url 'logout' %}">Logout</a></li>
-                    <p style="margin-right:5px">{{user.username}}</p> <!--Jun add this but need to change css later-->
+                    <a href="{% url 'logout' %}">Logout</a></li> 
+                    <p style="margin-right:5px">{{user.username}}</p> <!--need to change css later-->
                     <a href="profile.html"><img src={{user.photo}} class="userProfilePic"></a>
                 </div>
             </ul>
@@ -33,7 +33,7 @@
             {% for post in posts %}
             <div class="card">
                 <div class="cardProfile">
-                    <img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px">
+                    <img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px"> <!--new class for the photo in post-->
                     <p style="margin:11px auto">{{post.owner}}</p>
                 </div>
                 <div class="cardInfo">
