@@ -130,8 +130,6 @@ $('#submitInput').on('click', ()=>{
     let email = $('#email').val();
     let password = $('#password').val();
     
-    console.log(email, password);
-    
     $.ajax({
         url: "{% url "login" %}",
         data: {

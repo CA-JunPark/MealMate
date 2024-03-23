@@ -21,14 +21,14 @@ class CreatePost(APIView):
         if not owner or not where or not when or not max_user_num:
             return Response(status=500, data=dict(message='Cannot have blank'))
         
-        Post.objects.create(owner=owner, where=where, when=when, max_user_num=max_user_num, Note=note)
+        
+        Post.objects.create(owner=owner, where=where, when=when, current_users=owner,max_user_num=max_user_num, Note=note)
         
         return Response(status=200, data=dict(message="Posted"))
                         
 class PostMoreInfo(APIView):
     def get(self, request):
         postID = request.GET.get('id')
-        user = request.user
         selectedPost = Post.objects.get(id=postID)
         owner = Account.objects.get(email=selectedPost.owner)
         name = owner.username
@@ -37,4 +37,24 @@ class PostMoreInfo(APIView):
     
     def post(self, request):
         """join"""
+        id = request.data.get('id', None)
+        user = request.user
+        post_object = Post.objects.get(id=id)
+        
+        strCurrent_users = post_object.current_users
+        
+        if user.email == post_object.owner:
+            return Response(status=500, data=dict(message='You are already a member'))
+        if user.email in post_object.current_users:
+            return Response(status=500, data=dict(message='You are already a member'))
+        if (post_object.current_user_number == post_object.max_user_num):
+            return Response(status=500, data=dict(message='Full'))
+
+        # TODO Need algorithms to reject multiple join in close time
+
+        post_object.current_users += " " + user.email
+        
+        post_object.save()
+    
+        return Response(status=200, data=dict(message="Joined"))
         

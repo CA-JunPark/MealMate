@@ -62,14 +62,38 @@
                 </div>
                 <div class="backJoinButtons">
                     <a href="{%url 'home'%}"><button class="backButton">Back</button></a>
-                    <button class="joinButton">Join</button>
+                    <button class="joinButton" id="joinButton">Join</button>
                 </div>
             </div>
         </div>
     </body>
 </html>
 <script>
-// JavaScript event listeners
+$.ajaxSetup({
+    headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+$('#joinButton').on('click', ()=>{
+    event.preventDefault(); 
+    
+    let id = {{post.id}};
+    
+    $.ajax({
+        url: "{% url "postMoreInfo" %}",
+        data: {
+            id: id,
+        },
+        method: "POST",
+        dataType: "json",
+        success: function (data){
+            alert("Success!");
+            location.replace('{% url 'postMoreInfo'%}?id={{post.id}}');
+        },
+        error:function (request, status, error){
+            let data = JSON.parse(request.responseText);
+            alert(data.message);
+        }
+    }); 
+});
 </script>
 <style>
     html {
