@@ -50,22 +50,20 @@ class PostMoreInfo(APIView):
         if (post_object.current_user_number == post_object.max_user_num):
             return Response(status=500, data=dict(message='Full'))
 
-        # TODO Need algorithms to reject multiple join in close time
-
         # get all this user's meals
         all_posts = Post.objects.all()
         myPosts = []
         for p in all_posts:
             if user.email in p.current_users:
                 myPosts.append(p)
-        # compare each time
+        # compare each time then reject if within 30min
         for mp in myPosts:
             t1 = mp.when
             t2 = post_object.when
             t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
             t2_s = t2.hour * 3600 + t2.minute * 60 + t2.second
             
-            if abs(t1_s - t2_s) < 1800:
+            if abs(t1_s - t2_s) < 1800: 
                 return Response(status=500, data=dict(message='You are in the another meal that is close to this.'))
             
         # add current_user
