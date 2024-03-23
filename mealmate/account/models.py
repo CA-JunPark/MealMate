@@ -34,7 +34,7 @@ class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name='email',
                               max_length=255, unique=True,)
     
-    photo = models.TextField(default="media/default_profile.png")
+    photo = models.TextField(default='/media/images/default_profile.png', null=False, blank=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

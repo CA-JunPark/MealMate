@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Account
 from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from mealmate.settings import MEDIA_ROOT
 
 class CreateAccount(APIView):
     def get(self, request):
@@ -27,6 +28,8 @@ class CreateAccount(APIView):
     
 class Login(APIView):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('home')
         return render(request, 'account/login.html')
 
     def post(self, request):
@@ -47,4 +50,11 @@ class Login(APIView):
         request.session['email'] = user.email
         
         login(request, user)
+        
         return Response(status=200, data=dict(message='Login Success'))
+
+class LogOut(APIView):
+    def get(self, request):
+        request.session.flush()
+        logout(request)
+        return render(request, "account/login.html")

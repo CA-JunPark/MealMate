@@ -7,6 +7,8 @@ from account.models import Account
 class CreatePost(APIView):
     def get(self, request):
         user = request.user
+        if user is None:
+            return render(request, 'mealmate/login.html')
         return render(request, 'post/createPost.html', context={'user': user})
 
     def post(self, request):
@@ -21,9 +23,10 @@ class CreatePost(APIView):
         
         Post.objects.create(owner=owner, where=where, when=when, max_user_num=max_user_num, Note=note)
         
-        # if Post.objects.filter(owner=owner).
         return Response(status=200, data=dict(message="Posted"))
                         
 class PostMoreInfo(APIView):
     def get(self, request):
+        postID = request.GET.get('id')
+        print(postID)
         return render(request, 'post/postMoreInfo.html')
