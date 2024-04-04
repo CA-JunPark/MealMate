@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/mealmate/templates/mealmate/home.html" }
+  ]
+}
