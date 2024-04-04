@@ -38,7 +38,7 @@ class Account(AbstractBaseUser):
     gender = models.TextField(null=True, blank=True, default="")
     language = models.TextField(null=True, blank=True, default="")
     country = models.TextField(null=True, blank=True, default="")
-    year = models.IntegerField(null=True, blank=True, default="")
+    year = models.IntegerField(null=True, blank=True, default=None)
     major = models.TextField(null=True, blank=True, default="")
     minor = models.TextField(null=True, blank=True, default="")
     bio = models.TextField(null=True, blank=True, default="")
