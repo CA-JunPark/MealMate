@@ -1,5 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/mealmate/templates/mealmate/home.html" }
+    "builds": [
+    { "src": "wsgi.py", "use": "@ardnt/vercel-python-wsgi" }
   ]
 }
