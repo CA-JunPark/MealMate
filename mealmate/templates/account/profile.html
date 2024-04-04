@@ -25,7 +25,6 @@
                 </div>
             </ul>
         </header>
-        <h1>Profile</h1>
         <div class="main">
             <div class="infoCard">
                 <div class="editProfileContainer">
@@ -39,32 +38,32 @@
                 <div class="informationContainer">
                     <div class="bio">
                         <p>Bio:</p>
-                        <div class="bioBox">**THIS IS WHERE THERE WILL BE BIO**</div> <!--NEED field in Account-->
+                        <div class="bioBox">{{user.bio}}</div> <!--NEED field in Account-->
                     </div>
                     <div class="info">
                         <div class="infoBox">
-                            Gender: M  <!--NEED field in Account-->
+                            Gender: <div id="userGenter">{{user.gender}} </div>  <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Language(s): English/Korean <!--NEED field in Account-->
+                            Language(s): <div id="userLang">{{user.language}} </div> <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Country: Canada <!--NEED field in Account-->
+                            Country: <div id="userContry">{{user.country}} </div> <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            TWU Year: 3 <!--NEED field in Account-->
+                            TWU Year: <div id="userYear">{{user.year}} </div> <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Major(s): Computer Science <!--NEED field in Account-->
+                            Major(s): <div id="userMajor">{{user.major}} </div> <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
-                            Minor(s): Math <!--NEED field in Account-->
+                            Minor(s): <div id="userMinor">{{user.minor}} </div> <!--NEED field in Account-->
                         </div>
                     </div>
                 </div>
-                <div class="backJoinButtons">
-                    <button class="backButton" onclick="window.history.back()">Back</button>
-                </div>
+            </div>
+            <div class="backJoinButtons">
+                <button class="backButton" onclick="window.history.back()">Back</button>
             </div>
         </div>
     </body>
@@ -154,6 +153,7 @@
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        margin-top: 110px;
     }
 
     .infoCard {
@@ -258,7 +258,7 @@
     }
 
     .backJoinButtons {
-        margin-top: 40px;
+        margin-top: 10px;
         display: flex;
         justify-content: space-evenly;
     }

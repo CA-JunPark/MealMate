@@ -35,6 +35,16 @@ class Account(AbstractBaseUser):
                               max_length=255, unique=True,)
     
     photo = models.TextField(default='/media/images/default_profile.png', null=False, blank=False)
+    gender = models.TextField(null=True, blank=True, default="")
+    language = models.TextField(null=True, blank=True, default="")
+    country = models.TextField(null=True, blank=True, default="")
+    year = models.IntegerField(null=True, blank=True, default=None)
+    major = models.TextField(null=True, blank=True, default="")
+    minor = models.TextField(null=True, blank=True, default="")
+    bio = models.TextField(null=True, blank=True, default="")
+    
+    emailAgree = models.BooleanField(default = True)
+    
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
