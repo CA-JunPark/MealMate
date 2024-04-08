@@ -88,7 +88,7 @@ class PostMoreInfo(APIView):
             if abs(t1_s - t2_s) < 1800: 
                 return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
 
-        if post_object.current_user_number == post_object.max_user_number:
+        if post_object.current_user_number == post_object.max_user_num:
             return Response(status=500, data=dict(message='This group is full'))
         
         # add current_user
