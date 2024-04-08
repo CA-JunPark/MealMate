@@ -6,6 +6,8 @@
         <!-- <link rel="stylesheet" href="new.css" /> -->
         <!-- <link rel="stylesheet" href="./index.css" /> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        {% load static %}
+        <link rel="icon" href="{% static 'favicon.ico' %}">
     </head>
     <body>
         <!-- navigation bar -->
@@ -29,7 +31,7 @@
             <div class="infoCard">
                 <div class="editProfileContainer">
                     <!-- This would also let them change email/password -->
-                    <button class="editProfileButton">Edit Profile</button>
+                    <button class="editProfileButton">Edit</button>
                 </div>
                 <div class="cardProfile">
                     <img src="{{user.photo}}" class="cardProfilePhoto">
@@ -263,7 +265,7 @@
         justify-content: space-evenly;
     }
 
-    .backButton, .joinButton {
+    .backButton, .joinButton, .editProfileButton{
         color: white;
         font-size: 1.5em;
         padding: 10px 20px;
