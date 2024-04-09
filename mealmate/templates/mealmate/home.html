@@ -88,8 +88,8 @@
 $(document).ready(function() {
   $("#sort").change(function() {
     const sortVal = $(this).val();
-    const searchBy = document.getElementById("myInput").value;
-    const searchVal = document.getElementById("myInput").value;
+    const searchBy = document.getElementById("searchBy").value;
+    const searchVal = document.getElementById("search").value;
     $.ajax({
       url: "{% url "home" %}",
       data: { sortVal: sortVal,
@@ -107,8 +107,8 @@ $(document).ready(function() {
 
   $("#search").click(function() {
     const sortVal = document.getElementById("sort").val();
-    const searchBy = document.getElementById("myInput").value;
-    const searchVal = document.getElementById("myInput").value;
+    const searchBy = document.getElementById("searchBy").value;
+    const searchVal = document.getElementById("search").value;
 
     $.ajax({
       url: "{% url "home" %}",
