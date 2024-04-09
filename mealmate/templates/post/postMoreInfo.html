@@ -57,12 +57,6 @@
                         <div class="infoBox">
                             {{post.when}}
                         </div>
-                        <p>Group Members</p> <!--Need to change each name as a button link to that user's profile-->
-                        <div class="infoBox">
-                            {% for member in current_users %}
-                                {{ member }},
-                            {% endfor %}
-                        </div>
                         <p><b>Current People:</b></p>
                         <div class="infoBox">
                             <b>{{post.current_user_number}} / {{post.max_user_num}}</b>

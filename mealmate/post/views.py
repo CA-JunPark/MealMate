@@ -54,7 +54,6 @@ class PostMoreInfo(APIView):
         selectedPost = Post.objects.get(id=postID)
         owner = Account.objects.get(email=selectedPost.owner)
         name = owner.username
-        print(name)
         photo = owner.photo
         current_users = selectedPost.current_users.split(" ")
         ownerEmail = selectedPost.owner
@@ -117,16 +116,24 @@ class PostMoreInfo(APIView):
         return Response(status=200, data=dict(message="Joined"))
 
     def patch(self, request):
+        """Leave"""
+        
         user = request.user
+        
+        userEmail = user.email
         
         currentPostID = request.data.get('id', None)
 
         post = Post.objects.get(id=currentPostID)
         
-        userNames = post.current_users
-        
-        print(userNames) 
-        
+        memberEmails = post.current_users
+        print(post.current_users)
+        if (" " + userEmail) in memberEmails:
+            memberEmails = memberEmails.replace(" " + userEmail, "")
+            post.current_users = memberEmails
+            post.current_user_number -= 1
+            post.save()
+        print(post.current_users)
         return Response(status=200, data=dict(message="Leaved"))
     
 class MyMeals(APIView):
