@@ -5,7 +5,6 @@ from .models import Post
 from account.models import Account
 from datetime import datetime
 from django.http import JsonResponse
-import datetime
 
 class CreatePost(APIView):
     def get(self, request):
