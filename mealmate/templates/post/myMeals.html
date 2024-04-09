@@ -34,7 +34,7 @@
             {% for post in posts %}
             <div class="card">
                 <div class="cardProfile">
-                    <img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px"> <!--new class for the photo in post-->
+                    <a href="{% url 'profile'%}?userEmail={{post.owner}}"><img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px"></a>
                     <p style="margin:11px auto">{{post.owner_name}}</p>
                 </div>
                 <div class="cardInfo">
@@ -110,6 +110,12 @@
         border-radius: 50%;
     }
 
+    .userProfilePicPost {
+        width: 150px;
+        height: 150px;
+        border: 2px solid white;
+        border-radius: 50%;
+    }
     .nav li {
         display: inline;
         margin-right: 10px;

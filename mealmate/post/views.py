@@ -147,10 +147,11 @@ class MyMeals(APIView):
         
         for post in posts:
             if user.email in post.current_users:
+                ownerObject = Account.objects.get(email=post.owner)
                 myPosts.append(dict(id=post.id,
                                   owner=post.owner,
-                                  owner_name=user.username,
-                                  photo=user.photo,
+                                  owner_name=ownerObject.username,
+                                  photo=ownerObject.photo,
                                   where=post.where,
                                   Note=post.Note,
                                   current_user_number=post.current_user_number,
