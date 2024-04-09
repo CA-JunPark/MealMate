@@ -29,6 +29,36 @@
         </header>
         <!-- Card containers -->
         <div class="main" >
+            <div class="searchAndSort">
+                <!-- SORT -->
+                <div class="inputGroup">
+                    <label for="sort">Sort By</label>
+                    <select id="sort">
+                        <option value="">--None--</option>
+                        <option value="ownerName">Owner Name</option>
+                        <option value="where">Where</option>
+                        <option value="when">When</option>
+                        <option value="currentUserNum">Current People Number</option>
+                        <option value="maxUserNum">Max People Number</option>
+                    </select>
+                </div>
+                <!-- SEARCH -->
+                <div class="searchContainer">
+                    <div class="inputGroup">
+                        <label for="search">Search By</label>
+                        <select id="search">
+                            <option value="">--None--</option>
+                            <option value="ownerName">Owner Name</option>
+                            <option value="where">Where</option>
+                            <option value="currentUserNum">Current People Number</option>
+                            <option value="maxUserNum">Max People Number</option>
+                        </select>
+                    </div>
+                    <p id="searchTxt">Search:</p>
+                    <input type="text" id="search" name="search">
+                    <button id="submitSearch">Search</button>
+                </div>
+            </div>
         {% if posts.length == 0 %}
             <h1>There is no Post</h1>
         {% else %}
@@ -119,7 +149,6 @@
         border-radius: 50%;
     }
 
-
     .nav li {
         display: inline;
         margin-right: 10px;
@@ -151,6 +180,41 @@
         flex-wrap: wrap;
         padding-bottom: 100px;
         margin-top: 110px;
+    }
+
+    .searchAndSort {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+   }
+
+    .searchContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 50px;
+    }
+
+    .searchContainer p {
+        margin-left: 15px;
+    }
+
+    #submitSearch {
+        margin-left: 8px;
+        color: white;
+        font-size: 1em;
+        padding: 5px 10px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 2px white;
+        border-radius: 30px;
+        transition: padding;
+    }
+
+    select, input {
+        padding: 8px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
     }
 
     .card {
@@ -220,7 +284,7 @@
         margin-top: 10px
     }
 
-    .cardMoreInfoButton:hover {
+    .cardMoreInfoButton:hover, #submitSearch:hover {
         cursor: pointer;
         transform: scale(1.05);
     } 
