@@ -65,6 +65,33 @@ class Profile(APIView):
         user = Account.objects.get(email=userEmail)
         return render(request, "account/profile.html", context={'user':user})
     
+    def put(self, request):
+        profileUser = request.data.get('profileUser')
+        if profileUser == request.user.email:
+            photo = request.data.get('photo')
+            gender = request.data.get('gender')
+            language = request.data.get('language')
+            country = request.data.get('country')
+            year = request.data.get('year')
+            if not isinstance(year, int):
+                return Response(status=500, data=dict(message='Please enter integer for Year'))
+            major = request.data.get('major')
+            bio = request.data.get('bio')
+            emailAgree = request.data.get('emailAgree')
+
+            user = Account.objects.get(profileUser)
+            
+            user.photo = photo
+            user.gender = gender
+            user.language = language
+            user.country = country
+            user.year = year
+            user.major = major
+            user.bio = bio
+            user.emailAgree = emailAgree
+            user.save()
+        else:
+            return Response(status=500, data=dict(message="You cannot edit other's profile"))
 class OtherProfile(APIView):
     def get(self, request):
         userEmail = request.GET.get('userEmail')
