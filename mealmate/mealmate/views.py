@@ -10,8 +10,18 @@ class Home(APIView):
         if user is None:
             return render(request, 'mealmate/login.html')
         
+        sortVal = request.GET.get('sortVal')
+        searchBy = request.GET.get('searchBy')
+        searchVal = request.GET.get('searchVal')
+        
+        
         user_objects = Account.objects.get(email=user.email)
-        posts_objects = Post.objects.all()
+        if searchVal is None: 
+            posts_objects = Post.objects.all()
+        else:
+            if searchBy == "owner":
+                posts_objects = Post.objects.get(ownerName=searchVal)
+            # TODO so on...
         
         posts = []
         
@@ -33,7 +43,8 @@ class Home(APIView):
                 post.delete()
         
         # sort 
-        # TODO NEED TO add sorting option in html MyMeal and home
-        posts = sorted(posts, key = lambda item: item["when"], reverse=True)
-        
+        if sortVal is not None:
+            posts = sorted(posts, key = lambda item: item[sortVal], reverse=True)
+        else:
+            posts = sorted(posts, key=lambda item: item["when"], reverse=False)
         return render(request, 'mealmate/home.html', context={'posts': posts, 'user': user_objects})
