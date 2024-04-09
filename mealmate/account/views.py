@@ -90,6 +90,7 @@ class Profile(APIView):
             user.bio = bio
             user.emailAgree = emailAgree
             user.save()
+            return Response(status=200, data=dict(message="Edited"))
         else:
             return Response(status=500, data=dict(message="You cannot edit other's profile"))
 class OtherProfile(APIView):

@@ -127,15 +127,19 @@ class PostMoreInfo(APIView):
 
         post = Post.objects.get(id=currentPostID)
         
+        if post.owner == user.email:
+            return Response(status=500, data=dict(message="Owner of the post cannot leave the post"))
+        
         memberEmails = post.current_users
-        print(post.current_users)
+        
         if (" " + userEmail) in memberEmails:
             memberEmails = memberEmails.replace(" " + userEmail, "")
             post.current_users = memberEmails
             post.current_user_number -= 1
             post.save()
-        print(post.current_users)
-        return Response(status=200, data=dict(message="Leaved"))
+            return Response(status=200, data=dict(message="Leaved"))
+        else:
+            return Response(status=500, data=dict(message="You are not the member of this post"))
     
 class MyMeals(APIView):
     def get(self, request):
