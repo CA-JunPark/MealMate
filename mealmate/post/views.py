@@ -5,6 +5,7 @@ from .models import Post
 from account.models import Account
 from datetime import datetime
 from django.http import JsonResponse
+import datetime
 
 class CreatePost(APIView):
     def get(self, request):
@@ -146,18 +147,20 @@ class MyMeals(APIView):
         myPosts = []
         
         for post in posts:
-            if user.email in post.current_users:
-                ownerObject = Account.objects.get(email=post.owner)
-                myPosts.append(dict(id=post.id,
-                                  owner=post.owner,
-                                  owner_name=ownerObject.username,
-                                  photo=ownerObject.photo,
-                                  where=post.where,
-                                  Note=post.Note,
-                                  current_user_number=post.current_user_number,
-                                  current_users=post.current_users,
-                                  max_user_num=post.max_user_num,
-                                  when=post.when))
-        
+            if post.when > datetime.datetime.now().time():
+                if user.email in post.current_users:
+                    ownerObject = Account.objects.get(email=post.owner)
+                    myPosts.append(dict(id=post.id,
+                                    owner=post.owner,
+                                    owner_name=ownerObject.username,
+                                    photo=ownerObject.photo,
+                                    where=post.where,
+                                    Note=post.Note,
+                                    current_user_number=post.current_user_number,
+                                    current_users=post.current_users,
+                                    max_user_num=post.max_user_num,
+                                    when=post.when))
+            else:  # delete posts that are over
+                post.delete()
         return render(request, 'post/myMeals.html', context={"posts":myPosts})
     
