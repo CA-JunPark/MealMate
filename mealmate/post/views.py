@@ -15,6 +15,7 @@ class CreatePost(APIView):
 
     def post(self, request):
         owner = request.data.get('owner', None)
+        ownerName = Account.objects.get(email=owner).username
         where = request.data.get('where', None)
         when = request.data.get('when', None)
         max_user_num = int(request.data.get('max_user_num', None))
@@ -44,7 +45,7 @@ class CreatePost(APIView):
             if abs(t1_s - t2_s) < 1800:
                 return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
 
-        Post.objects.create(owner=owner, where=where, when=when, current_users=owner,max_user_num=max_user_num, Note=note)
+        Post.objects.create(owner=owner, ownerName=ownerName, where=where, when=when, current_users=owner,max_user_num=max_user_num, Note=note)
         
         return Response(status=200, data=dict(message="Posted"))
                         

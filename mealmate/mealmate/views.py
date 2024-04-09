@@ -35,5 +35,5 @@ class Home(APIView):
         # sort 
         # TODO NEED TO add sorting option in html MyMeal and home
         posts = sorted(posts, key = lambda item: item["when"], reverse=True)
-        
+            
         return render(request, 'mealmate/home.html', context={'posts': posts, 'user': user_objects})
