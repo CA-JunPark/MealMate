@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Post
 from account.models import Account
 from datetime import datetime
+from django.http import JsonResponse
 
 class CreatePost(APIView):
     def get(self, request):
@@ -53,11 +54,28 @@ class PostMoreInfo(APIView):
         selectedPost = Post.objects.get(id=postID)
         owner = Account.objects.get(email=selectedPost.owner)
         name = owner.username
+        print(name)
         photo = owner.photo
         current_users = selectedPost.current_users.split(" ")
-        for i in range(len(current_users)):
-            current_users[i] = Account.objects.get(email=current_users[i]).username
-        return render(request, 'post/postMoreInfo.html', context={'post':selectedPost, 'photo':photo, 'name':name, 'current_users': current_users})
+        ownerEmail = selectedPost.owner
+        
+        memberInfo = []
+
+        for n in range(len(current_users)):
+            memberObject = Account.objects.get(email=current_users[n])
+            # convert email to its username
+            current_users[n] = memberObject.username
+            if n != 0: # Skip owner
+                # get member photos
+                memberInfo.append(
+                    (current_users[n], memberObject.photo, memberObject.email))
+                
+        return render(request, 'post/postMoreInfo.html', context={'post': selectedPost, 
+                                                                  'ownerPhoto': photo, 
+                                                                  'ownerName': name, 
+                                                                  'current_users': current_users, 
+                                                                  'memberInfo': memberInfo, 
+                                                                  'ownerEmail': ownerEmail})
     
     def post(self, request):
         """join"""
@@ -98,6 +116,19 @@ class PostMoreInfo(APIView):
     
         return Response(status=200, data=dict(message="Joined"))
 
+    def patch(self, request):
+        user = request.user
+        
+        currentPostID = request.data.get('id', None)
+
+        post = Post.objects.get(id=currentPostID)
+        
+        userNames = post.current_users
+        
+        print(userNames) 
+        
+        return Response(status=200, data=dict(message="Leaved"))
+    
 class MyMeals(APIView):
     def get(self, request):
         
@@ -121,3 +152,4 @@ class MyMeals(APIView):
                                   when=post.when))
         
         return render(request, 'post/myMeals.html', context={"posts":myPosts})
+    

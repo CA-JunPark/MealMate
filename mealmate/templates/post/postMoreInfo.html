@@ -2,9 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <!-- <meta name="viewport" content="initial-scale=1, width=device-width" /> -->
-        <!-- <link rel="stylesheet" href="new.css" /> -->
-        <!-- <link rel="stylesheet" href="./index.css" /> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         {% load static %}
         <link rel="icon" href="{% static 'favicon.ico' %}">
@@ -30,9 +27,25 @@
         <h1>More Info</h1>
         <div class="main">
             <div class="infoCard">
-                <div class="cardProfile">
-                    <img src={{photo}} class="cardProfilePhoto">
-                    <p>{{name}}</p>
+                <div class="editPostContainer">
+                    <button class="editPostButton">Edit Post</button>
+                </div>
+                <div class="cardProfiles">
+                    <div class="ownerProfileContainer">
+                       <a href="{% url 'other'%}?userEmail={{user.email}}&otherEmail={{ownerEmail}}"><img src="{{ownerPhoto}}" class="ownerProfilePic"></a>
+                        <!-- INSERT OTHER PROFILE LINK -->
+                        <p>{{ownerName}}</p>
+                    </div>
+                    <div class="moreProfiles">
+                        <!-- I DON"T KNOW HOW TO DO FOR LOOP YET -->
+                        {% for member in memberInfo %}
+                            <div class="moreProfileContainer">
+                                <a href="{% url 'other'%}?userEmail={{user.email}}&otherEmail={{member.2}}"><img src="{{member.1}}" class="moreProfilePic"></a>
+                                <!-- INSERT OTHER PROFILE LINK -->
+                                <p>{{ member.0 }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="informationContainer">
                     <div class="info">
@@ -61,8 +74,9 @@
                     </div>
                 </div>
                 <div class="backJoinButtons">
-                    <a href="{%url 'home'%}"><button class="backButton">Back</button></a>
+                    <button class="backButton" onclick="window.history.back()">Back</button>
                     <button class="joinButton" id="joinButton">Join</button>
+                    <button class="leaveButton" id="leaveButton">Leave</button>
                 </div>
             </div>
         </div>
@@ -88,12 +102,38 @@ $('#joinButton').on('click', ()=>{
             alert("Success!");
             location.replace('{% url 'postMoreInfo'%}?id={{post.id}}');
         },
+        error: function (request, status, error){
+            let data = JSON.parse(request.responseText);
+            alert(data.message);
+        }
+    }); 
+});
+
+$('#leaveButton').on('click', ()=>{
+    event.preventDefault(); 
+    
+    console.log("LEAVE")
+    let id = {{post.id}};
+    console.log(id)
+    $.ajax({
+        url: "{% url "postMoreInfo" %}",
+        data: {
+            id: id,
+        },
+        method: "PATCH",
+        dataType: "json",
+        success: function (data){
+            alert("Leaved");
+            location.replace('{% url 'postMoreInfo'%}?id={{post.id}}');
+        },
         error:function (request, status, error){
             let data = JSON.parse(request.responseText);
             alert(data.message);
         }
     }); 
 });
+
+
 </script>
 <style>
     html {
@@ -180,6 +220,7 @@ $('#joinButton').on('click', ()=>{
     }
 
     .infoCard {
+        position: relative;
         background-color: rgb(0, 0, 0, 0.15);
         border-radius: 45px;
         width: 800px;
@@ -189,9 +230,25 @@ $('#joinButton').on('click', ()=>{
         margin-bottom: 40px;
     }
 
+    .editPostContainer {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+    }
+
+    .editPostButton:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+
     .cardProfiles {
         display: flex;
         flex-direction: row;
+    }
+
+    .cardProfiles a {
+        color: black;
+        text-decoration: none;
     }
 
     .ownerProfileContainer, .moreProfileContainer {
@@ -295,7 +352,7 @@ $('#joinButton').on('click', ()=>{
         justify-content: space-evenly;
     }
 
-    .backButton, .joinButton {
+    .backButton, .joinButton, .editPostButton, .leaveButton {
         color: white;
         font-size: 1.5em;
         padding: 10px 20px;
@@ -303,15 +360,15 @@ $('#joinButton').on('click', ()=>{
         border: solid 4px white;
         border-radius: 30px;
         transition: padding;
-        margin-right: 10px;
+        margin-bottom: 20px;
     }
 
-    .backButton:hover, .joinButton:hover {
+    .backButton:hover, .joinButton:hover, .leaveButton:hover {
         cursor: pointer;
         transform: scale(1.05);
     } 
 
-    
+   
 </style>
 
 

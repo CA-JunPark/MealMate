@@ -64,3 +64,11 @@ class Profile(APIView):
         userEmail = request.GET.get('userEmail')
         user = Account.objects.get(email=userEmail)
         return render(request, "account/profile.html", context={'user':user})
+    
+class OtherProfile(APIView):
+    def get(self, request):
+        userEmail = request.GET.get('userEmail')
+        user = Account.objects.get(email=userEmail)
+        otherEmail = request.GET.get('otherEmail')
+        other = Account.objects.get(email=otherEmail)
+        return render(request, "account/otherProfile.html", context={'user': user, 'other': other})
