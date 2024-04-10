@@ -40,6 +40,7 @@
                         <option value="currentUserNum">Current People Number</option>
                         <option value="maxUserNum">Max People Number</option>
                     </select>
+                    <button id="ascendingButton">&nbsp;&#8679;&nbsp;</button>
                 </div>
                 <!-- SEARCH -->
                 <div class="searchContainer">
@@ -131,7 +132,18 @@ $(document).ready(function() {
       $("#search").click();
     }
   });
+  
+  $("#ascendingButton").click(function(){
+    var button = $(this);
+  
+    if (button.html() == "&nbsp;⇧&nbsp;") {
+        button.html("&nbsp;⇩&nbsp;"); // Change to down arrow
+    } else if (button.html() == "&nbsp;⇩&nbsp;") {
+      button.html("&nbsp;⇧&nbsp;"); // Change to up arrow
+    }
+  });
 });
+
 </script>
 <style>
     html {
@@ -254,6 +266,17 @@ $(document).ready(function() {
         transition: padding;
     }
 
+    #ascendingButton {
+        margin-left: 8px;
+        color: white;
+        font-size: 1em;
+        padding: 8px;
+        background: linear-gradient(to right,  #56FF9A,  #61AAFF);
+        border: solid 2px white;
+        border-radius: 50%;
+        transition: padding;
+    }
+
     select, input {
         padding: 8px;
         border-radius: 10px;
@@ -328,7 +351,7 @@ $(document).ready(function() {
         margin-top: 10px
     }
 
-    .cardMoreInfoButton:hover, #submitSearch:hover {
+    button:hover {
         cursor: pointer;
         transform: scale(1.05);
     } 
@@ -353,10 +376,5 @@ $(document).ready(function() {
         border-radius: 30px;
         transition: padding;
     }
-
-    .makePostButton:hover {
-        cursor: pointer;
-        transform: scale(1.05);
-    } 
     
 </style>
