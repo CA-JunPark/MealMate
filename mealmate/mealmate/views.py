@@ -14,6 +14,7 @@ class Home(APIView):
         searchBy = request.GET.get('searchBy')
         searchVal = request.GET.get('searchVal')
         
+        print(sortVal, searchBy, searchVal)
         
         user_objects = Account.objects.get(email=user.email)
         if searchVal is None: 
