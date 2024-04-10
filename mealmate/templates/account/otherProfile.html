@@ -39,27 +39,33 @@
                 </div>
                 <div class="informationContainer">
                     <div class="bio">
-                        <p>Bio:</p>
-                        <div class="bioBox">{{other.bio}}</div> <!--NEED field in Account-->
+                        <p>Bio</p>
+                        <div class="bioBox">{{user.bio}}</div> <!--NEED field in Account-->
                     </div>
                     <div class="info">
-                        <div class="infoBox">
-                            Gender: <div id="userGenter">{{other.gender}} </div>  <!--NEED field in Account-->
+                        <p>Gender</p>
+                        <div class="infoBox" id="userGender">
+                            {{user.gender}} <!--NEED field in Account-->
                         </div>
-                        <div class="infoBox">
-                            Language(s): <div id="userLang">{{other.language}} </div> <!--NEED field in Account-->
+                        <p>Language(s)</p>
+                        <div class="infoBox" id="userLang">
+                            {{user.language}}  <!--NEED field in Account-->
                         </div>
-                        <div class="infoBox">
-                            Country: <div id="userContry">{{other.country}} </div> <!--NEED field in Account-->
+                        <p>Country</p>
+                        <div class="infoBox" id="userContry">
+                            {{user.country}}  <!--NEED field in Account-->
                         </div>
-                        <div class="infoBox">
-                            TWU Year: <div id="userYear">{{other.year}} </div> <!--NEED field in Account-->
+                        <p>Year</p>
+                        <div class="infoBox" id="userYear">
+                            {{user.year}}  <!--NEED field in Account-->
                         </div>
-                        <div class="infoBox">
-                            Major(s): <div id="userMajor">{{other.major}} </div> <!--NEED field in Account-->
+                        <p>Major(s)</p>
+                        <div class="infoBox" id="userMajor">
+                            {{user.major}}  <!--NEED field in Account-->
                         </div>
-                        <div class="infoBox">
-                            Minor(s): <div id="userMinor">{{other.minor}} </div> <!--NEED field in Account-->
+                        <p>Minor(s)</p>
+                        <div class="infoBox" id="userMinor">
+                            {{user.minor}}  <!--NEED field in Account-->
                         </div>
                     </div>
                 </div>
@@ -227,15 +233,18 @@
     }
 
     .info {
-        flex: 1;
+        margin-top: -25px;
+        flex: 2;
         padding-left: 40px;
     }
 
     .info p {
-        margin-bottom: 5px;
+        margin-bottom: 2px;
+        text-align: left;
     } 
 
     .infoBox {
+        text-align: left;
         background-color: white;
         min-width: 80%;
         padding: 12px;
@@ -246,7 +255,7 @@
     }
 
     .bio {
-        flex: 2;
+        flex: 3;
     }
 
     .bio p {
@@ -258,8 +267,7 @@
         padding: 12px;
         border-radius: 10px;
         border: 1px solid #cccccc;
-        width: 100%;
-        height: 300px;
+        height: 80%;
         box-sizing: border-box;
     }
 
