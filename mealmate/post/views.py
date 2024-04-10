@@ -18,13 +18,17 @@ class CreatePost(APIView):
         ownerName = Account.objects.get(email=owner).username
         where = request.data.get('where', None)
         when = request.data.get('when', None)
+        when = when.replace(":","")
+        date = request.data.get('date', None)
+        date = date.replace("-","")
+        when = date+when
         max_user_num = int(request.data.get('max_user_num', None))
         note = request.data.get('note', None)
 
         if not owner or not where or not when or not max_user_num:
             return Response(status=500, data=dict(message='Cannot have blank'))
+        time = datetime.strptime(when, "%Y%m%d%H%M").time()
         
-        time = datetime.strptime(when, "%H:%M").time()
         if time < datetime.now().time():
             return Response(status=500, data=dict(message='Please set time in the future'))
         
@@ -37,13 +41,13 @@ class CreatePost(APIView):
                 myPosts.append(p)
         # compare each time then reject if within 30min
         
-        t2_s = time.hour * 3600 + time.minute * 60 + time.second
-        for mp in myPosts:
-            t1 = mp.when
-            t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
+        # t2_s = time.hour * 3600 + time.minute * 60 + time.second
+        # for mp in myPosts:
+        #     t1 = mp.when
+        #     t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
         
-            if abs(t1_s - t2_s) < 1800:
-                return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
+        #     if abs(t1_s - t2_s) < 1800:
+        #         return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
 
         Post.objects.create(owner=owner, ownerName=ownerName, where=where, when=when, current_users=owner,max_user_num=max_user_num, Note=note)
         

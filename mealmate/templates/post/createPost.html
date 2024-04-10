@@ -77,6 +77,7 @@ $('#create').click(function () {
     let owner = "{{user}}"
     let where = $('#where').val();
     let when = $('#time').val();
+    let date = $('#date').val();
     let note = $('#notes').val();
     let max_user_num = $('#personMax').val();
     
@@ -86,6 +87,7 @@ $('#create').click(function () {
             owner: owner,
             where: where,
             when: when,
+            date: date,
             note: note,
             max_user_num: max_user_num,
         },

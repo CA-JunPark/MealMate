@@ -14,14 +14,39 @@ class CreateAccount(APIView):
         username = request.data.get('name', None)
         email = request.data.get('email', None)
         password = request.data.get('password', None)
+        confirmPW = request.data.get('confirmPW', None)
+        gender = request.data.get('gender', None)
+        language = request.data.get('language', None)
+        year = request.data.get('year', None)
+        year = int(year)
+        major = request.data.get('major', None)
+        minor = request.data.get('minor', None)
+        bio = request.data.get('bio',None)
         
-        if not username or not email or not password:
-            return Response(status=500, data=dict(message='Cannot have blank'))
+        if not username:
+            return Response(status=500, data=dict(message='Cannot have blank username'))
+        
+        if not email:
+            return Response(status=500, data=dict(message='Cannot have blank email'))
+        
+        if not password:
+            return Response(status=500, data=dict(message='Cannot have blank password'))
+        
+        if password != confirmPW:
+            return Response(status=500, data=dict(message='Password does not match'))
         
         if Account.objects.filter(email=email).exists():
             return Response(status=500, data=dict(message='This email already exists'))
-        
-        Account.objects.create(username=username, email=email, password = make_password(password))
+
+        Account.objects.create(username=username, 
+                               email=email, 
+                               password = make_password(password),
+                               gender=gender,
+                               language=language,
+                               year=year,
+                               major=major,
+                               minor=minor,
+                               bio=bio)
         
         return Response(status=200, data=dict(message="Registration Success"))
 

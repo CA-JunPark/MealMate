@@ -163,13 +163,27 @@ $('#submitInput').on('click',()=>{
     let email = $('#email').val();
     let name = $('#username').val();
     let password = $('#password').val();
+    let confirmPW = $('#confirmPassword').val();
+    let gender = $('#userGender').val();
+    let language = $('#userLang').val();
+    let year = $('#userYear').val();
+    let major = $('#userMajor').val();
+    let minor = $('#userMajor').val();
+    let bio = $('#bio').val();
 
     $.ajax({
         url: "{% url "createAccount" %}",
         data: {
             name: name,
             email: email,
-            password: password
+            password: password,
+            confirmPW: confirmPW,
+            gender: gender,
+            language: language,
+            year: year,
+            major: major,
+            minor: minor,
+            bio: bio
         },
         method: "POST",
         dataType: "json",
