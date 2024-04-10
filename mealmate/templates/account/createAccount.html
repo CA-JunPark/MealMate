@@ -12,12 +12,29 @@
             <div class="registerContainer">
                 <h2>Create an Account</h2>
                 <form id="register">
-                    <label for="username">Create a Username:</label>
+                    <div class="required"></div>
+                    <label for="username">*Create a Username:</label>
                     <input type="text" id="username" name="username" required>
-                    <label for="email">Enter your Email:</label>
+                    <label for="email">*Enter your Email:</label>
                     <input type="email" id="email" name="email" required>
-                    <label for="password">Create a Password:</label>
+                    <label for="password">*Create a Password:</label>
                     <input type="password" id="password" name="password" required>
+                    <label for="password">*Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <hr>
+                    <label for="userGender">Gender:</label>
+                    <input type="text" id="userGender" name="userGender">
+                    <label for="userLang">Language(s):</label>
+                    <input type="text" id="userLang" name="userLang">
+                    <label for="userYear">TWU Year:</label>
+                    <input type="number" id="userYear" name="userYear">
+                    <label for="userMajor">Major(s):</label>
+                    <input type="text" id="userMajor" name="userMajor">
+                    <label for="userMinor">Minor(s):</label>
+                    <input type="text" id="userMinor" name="userMinor">
+                    <label id="bioLabel" for="bio">Bio:</label>
+                    <textarea id="bio" name="bio"></textarea>
+                    <p>* indicates field is required</p>
                     <input id="submitInput" type="submit" value="Register">
                 </form>
                 <a href="{%url 'login'%}"><b>Cancel</b></a>
@@ -53,7 +70,7 @@
         align-items: center;
         background-color: rgba(255, 255, 255, 0.5);
         border-radius: 70px;
-        width: 40%;
+        width: 50%;
     }
 
     h2 {
@@ -64,13 +81,13 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        align-items:center;
+        align-items: center;
         margin-top: 20px;
     }
 
     label {
         text-align: left;
-        width: 60%;
+        width: 50%;
         margin-bottom: 5px;
     }
 
@@ -82,7 +99,29 @@
         border: 1px solid #cccccc;
         margin-bottom: 30px;
         box-sizing: border-box;
+        width: 50%;
+    }
+
+    hr {
+        width: 250px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+
+    #bioLabel {
         width: 60%;
+    }
+
+    #bio {
+        resize: none;
+        font-size: 1.2em;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        width: 60%;
+        height: 200px;
+        box-sizing: border-box;
+        margin-bottom: 40px;
     }
     
     #submitInput {
