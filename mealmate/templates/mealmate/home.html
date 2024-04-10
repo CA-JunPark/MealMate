@@ -37,8 +37,8 @@
                         <option value="ownerName">Owner Name</option>
                         <option value="where">Where</option>
                         <option value="when" selected>When</option>
-                        <option value="currentUserNum">Current People Number</option>
-                        <option value="maxUserNum">Max People Number</option>
+                        <option value="current_user_number">Current People Number</option>
+                        <option value="max_user_num">Max People Number</option>
                     </select>
                 </div>
                 <!-- SEARCH -->
@@ -48,8 +48,8 @@
                         <select id="searchBy">
                             <option value="ownerName" selected>Owner Name</option>
                             <option value="where">Where</option>
-                            <option value="currentUserNum">Current People Number</option>
-                            <option value="maxUserNum">Max People Number</option>
+                            <option value="current_user_number">Current People Number</option>
+                            <option value="max_user_num">Max People Number</option>
                         </select>
                     </div>
                     <p id="searchTxt">Search:</p>
@@ -97,7 +97,7 @@ $(document).ready(function() {
               searchVal: searchVal},
       method: "GET", 
       success: function(response) {
-        location.reload()
+
       },
       error: function(error) {
         console.error(error);
@@ -117,7 +117,7 @@ $(document).ready(function() {
               searchVal: searchVal},
       method: "GET", 
       success: function(response) {
-        location.reload()
+
       },
       error: function(error) {
         console.error(error);
