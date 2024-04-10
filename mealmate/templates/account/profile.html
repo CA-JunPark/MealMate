@@ -29,10 +29,6 @@
         </header>
         <div class="main">
             <div class="infoCard">
-                <div class="editProfileContainer">
-                    <!-- This would also let them change email/password -->
-                    <button class="editProfileButton">Edit</button>
-                </div>
                 <div class="cardProfile">
                     <img src="{{user.photo}}" class="cardProfilePhoto">
                     <p>{{user.username}}</p>
@@ -44,7 +40,7 @@
                     </div>
                     <div class="info">
                         <div class="infoBox">
-                            Gender: <div id="userGenter">{{user.gender}} </div>  <!--NEED field in Account-->
+                            Gender: <div id="userGender">{{user.gender}} </div>  <!--NEED field in Account-->
                         </div>
                         <div class="infoBox">
                             Language(s): <div id="userLang">{{user.language}} </div> <!--NEED field in Account-->
@@ -166,28 +162,6 @@
         padding: 15px 40px;
         display: flex;
         flex-direction: column;
-    }
-
-    .editProfileContainer {
-        position: absolute;
-        top: 20px;
-        right: 10px;
-    }
-
-    .editProfileButton {
-        color: black;
-        font-size: 1em;
-        padding: 5px;
-        background: white;
-        border: solid 2px white;
-        border-radius: 30px;
-        transition: padding;
-        margin-right: 10px;
-    }
-
-    .editProfileButton:hover {
-        cursor: pointer;
-        transform: scale(1.05);
     }
 
     .cardProfile {
