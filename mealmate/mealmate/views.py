@@ -41,7 +41,7 @@ class Home(APIView):
                                 current_user_number=post.current_user_number,
                                 current_users=post.current_users,
                                 max_user_num=post.max_user_num,
-                                when=post.when))
+                                when=post.when[:-3]))
             else: # delete posts that are over
                 post.delete()
         

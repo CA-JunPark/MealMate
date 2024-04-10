@@ -93,7 +93,6 @@ $(document).ready(function() {
     const sortVal = $(this).val();
     const searchBy = document.getElementById("searchBy").value;
     const searchVal = document.getElementById("search").value;
-    console.log(searchBy)
     $.ajax({
       url: "/searchPost/",
       data: { sortVal: sortVal,
@@ -102,7 +101,6 @@ $(document).ready(function() {
               searchVal: searchVal},
       method: "GET", 
       success: function(response) {
-        console.log("SEARCH"); // Optional: Log receiving the response
         var postList = document.getElementById("postList");
         postList.innerHTML = "";
         for (const post of response) {

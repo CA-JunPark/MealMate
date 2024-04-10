@@ -28,7 +28,7 @@
         <div class="main">
             <div class="infoCard">
                 <div class="editPostContainer">
-                    <button class="editPostButton">Edit Post</button>
+                    <a href="{% url 'edit'%}?id={{post.id}}"><button class="editPostButton" id='editPostButton'>Edit Post</button></a>
                 </div>
                 <div class="cardProfiles">
                     <div class="ownerProfileContainer">
@@ -118,7 +118,7 @@ $('#leaveButton').on('click', ()=>{
         dataType: "json",
         success: function (data){
             alert("Leaved");
-            location.replace('{% url 'postMoreInfo'%}?id={{post.id}}');
+            location.replace('{% url 'postMoreInfo'%}?id={{id}}');
         },
         error:function (request, status, error){
             let data = JSON.parse(request.responseText);
@@ -126,7 +126,6 @@ $('#leaveButton').on('click', ()=>{
         }
     }); 
 });
-
 
 </script>
 <style>

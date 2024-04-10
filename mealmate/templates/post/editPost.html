@@ -33,33 +33,62 @@
                 <div class="flexRow">
                     <div class="inputGroup">
                         <label for="where">Where?</label>
+                        {% if where == "Main Cafeteria" %}
                         <select id="where">
                             <option value="">--Select One--</option>
-                            <option value="Main Cafeteria">Main Cafeteria</option>
+                            <option value="Main Cafeteria" selected>Main Cafeteria</option>
                             <option value="Bookstore Cafeteria">Bookstore Cafeteria</option>
                             <option value="Lower Cafeteria">Lower Cafeteria</option>
                             <option value="Starbucks">Starbucks</option>
                         </select>
+                        {% endif %}
+                        {% if where == "Bookstore Cafeteria" %}
+                        <select id="where">
+                            <option value="">--Select One--</option>
+                            <option value="Main Cafeteria" selected>Main Cafeteria</option>
+                            <option value="Bookstore Cafeteria" selected>Bookstore Cafeteria</option>
+                            <option value="Lower Cafeteria">Lower Cafeteria</option>
+                            <option value="Starbucks">Starbucks</option>
+                        </select>
+                        {% endif %}
+                        {% if where == "Lower Cafeteria" %}
+                        <select id="where">
+                            <option value="">--Select One--</option>
+                            <option value="Main Cafeteria" selected>Main Cafeteria</option>
+                            <option value="Bookstore Cafeteria">Bookstore Cafeteria</option>
+                            <option value="Lower Cafeteria" selected>Lower Cafeteria</option>
+                            <option value="Starbucks">Starbucks</option>
+                        </select>
+                        {% endif %}
+                        {% if where == "Starbucks" %}
+                        <select id="where">
+                            <option value="">--Select One--</option>
+                            <option value="Main Cafeteria" selected>Main Cafeteria</option>
+                            <option value="Bookstore Cafeteria">Bookstore Cafeteria</option>
+                            <option value="Lower Cafeteria">Lower Cafeteria</option>
+                            <option value="Starbucks" selected>Starbucks</option>
+                        </select>
+                        {% endif %}
                     </div>
                     <div class="inputGroup">
                         <label for="time">When?</label>
-                        <input type="time" id="time" name="time">
+                        <input type="time" id="time" name="time" value={{when}}>
                     </div>
                 </div>
                 <div class="flexRow">
                     <div class="inputGroup">
                         <label for="personMax">Maximum People?</label>
-                        <input type="number" id="personMax" name="personMax" min="2" max="10" value="2">
+                        <input type="number" id="personMax" name="personMax" min="2" max="10" value={{max}}>
                     </div>
                     <div class="inputGroup">
                         <label for="date">Date:</label>
-                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" name="date" value={{date}}>
                     </div>                    
                 </div>
                 <label for="notes">Notes:</label>
-                <textarea id="notes" name="notes"></textarea>
+                <textarea id="notes" name="notes">{{note}}</textarea>
                 <div class="cancelFinishButtons">
-                    <a href="{% url "home" %}"><button class="cancelButton">Cancel</button></a>
+                    <button class="cancelButton" onclick="window.history.back()">Back</button>
                     <button id="create" class="finishButton">Finish</button>
                 </div>
             </div>
@@ -72,29 +101,30 @@ $.ajaxSetup({
 });
 $('#create').click(function () {
 
-    console.log("CLICK")
-    
-    let owner = "{{user}}"
+    let postid = "{{id}}"
+    let owner = "{{owner}}"
     let where = $('#where').val();
     let when = $('#time').val();
+    let date = $('#date').val();
     let note = $('#notes').val();
     let max_user_num = $('#personMax').val();
     
     $.ajax({
-        url: "{% url "createPost" %}",
+        url: "{% url "edit" %}",
         data: {
+            id: postid,
             owner: owner,
             where: where,
             when: when,
+            date: date,
             note: note,
             max_user_num: max_user_num,
         },
         method: "POST",
         dataType: "json",
         success: function (data){
-            alert("Success!");
-            console.log("AAA");
-            location.replace('{%url 'home'%}');
+            alert("Edited")
+            location.replace('{% url 'edit'%}?id={{id}}');
         },
         error:function (request, status, error){
             let data = JSON.parse(request.responseText);

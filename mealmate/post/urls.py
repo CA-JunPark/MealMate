@@ -7,6 +7,7 @@ urlpatterns = [
     path('createPost/', CreatePost.as_view(), name='createPost'),
     path('postMoreInfo/', PostMoreInfo.as_view(), name='postMoreInfo'),
     path('myMeals/', MyMeals.as_view(), name='myMeals'),
+    path('edit/', EditPost.as_view(), name='edit'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

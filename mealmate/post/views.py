@@ -1,11 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Post
 from account.models import Account
 from datetime import datetime
-from django.http import JsonResponse
-import logging
+from django.contrib.messages import error
 
 class CreatePost(APIView):
     def get(self, request):
@@ -74,8 +73,9 @@ class PostMoreInfo(APIView):
                 # get member photos
                 memberInfo.append(
                     (current_users[n], memberObject.photo, memberObject.email))
-                
-        return render(request, 'post/postMoreInfo.html', context={'post': selectedPost, 
+        
+        return render(request, 'post/postMoreInfo.html', context={'post': selectedPost,
+                                                                  'postID': postID,
                                                                   'ownerPhoto': photo, 
                                                                   'ownerName': name, 
                                                                   'current_users': current_users, 
@@ -95,21 +95,22 @@ class PostMoreInfo(APIView):
         if (post_object.current_user_number == post_object.max_user_num):
             return Response(status=500, data=dict(message='Full'))
 
-        # get all this user's meals
         all_posts = Post.objects.all()
         myPosts = []
         for p in all_posts:
             if user.email in p.current_users:
                 myPosts.append(p)
         # compare each time then reject if within 30min
+        time = datetime.strptime(
+            post_object.when[:-3].replace(" ", "").replace("-", "").replace(":", ""), "%Y%m%d%H%M")
+        t2_s = time.hour * 3600 + time.minute * 60 + time.second
         for mp in myPosts:
-            t1 = mp.when
-            t2 = post_object.when
-            t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
-            t2_s = t2.hour * 3600 + t2.minute * 60 + t2.second
-            
-            if abs(t1_s - t2_s) < 1800: 
-                return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
+            t1 = datetime.strptime(
+                mp.when[:-3].replace(" ", "").replace("-", "").replace(":", ""), "%Y%m%d%H%M")
+            if time.date() == t1.date():
+                t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
+                if abs(t1_s - t2_s) < 1800:
+                    return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
 
         if post_object.current_user_number == post_object.max_user_num:
             return Response(status=500, data=dict(message='This group is full'))
@@ -172,4 +173,65 @@ class MyMeals(APIView):
             else:  # delete posts that are over
                 post.delete()
         return render(request, 'post/myMeals.html', context={"posts":myPosts})
-    
+
+class EditPost(APIView):
+    def get(self, request):
+        user = request.user
+        id = request.GET.get('id')
+        post = Post.objects.get(id=id)
+        
+        where = post.where
+        when = post.when
+        date = when[:10]
+        when = when[11:]
+        
+        max = post.max_user_num
+        note = post.Note
+
+        return render(request, 'post/editPost.html', context={"id": id, "owner": post.owner, "where": where, "when": when, "date": date, "max": max, "note": note})
+
+    def post(self, request):
+        user = request.user
+        id = request.data.get('id', None)
+        owner = request.data.get('owner', None)
+        where = request.data.get('where', None)
+        when = request.data.get('when', None)
+        when = when.replace(":", "")
+        if (len(when) > 4):
+            when = when[:4]
+        date = request.data.get('date', None)
+        date = date.replace("-", "")
+        when = date+when
+        note = request.data.get('note', None)
+        max_user_num = int(request.data.get('max_user_num', None))
+        
+        if owner != user.email:
+            return Response(status=500, data=dict(message="You are not the owner of this post"))
+        
+        time = datetime.strptime(when, "%Y%m%d%H%M")
+        
+        all_posts = Post.objects.exclude(id=id)
+        myPosts = []
+        for p in all_posts:
+            if user.email in p.current_users:
+                myPosts.append(p)
+        # compare each time then reject if within 30min
+        t2_s = time.hour * 3600 + time.minute * 60 + time.second
+        for mp in myPosts:
+            t1 = datetime.strptime(
+                mp.when[:-3].replace(" ", "").replace("-", "").replace(":", ""), "%Y%m%d%H%M")
+            if time.date() == t1.date():
+                t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
+                if abs(t1_s - t2_s) < 1800:
+                    return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
+        
+        post = Post.objects.get(id=id)
+        
+        post.where = where
+        post.when = time
+        post.Note = note
+        post.max_user_num = max_user_num
+        
+        post.save()
+        
+        return Response(status=200, data=dict(message="Edited"))
