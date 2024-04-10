@@ -34,7 +34,7 @@
                 <div class="inputGroup">
                     <label for="sort">Sort By</label>
                     <select id="sort">
-                        <option value="ownerName">Owner Name</option>
+                        <option value="owner_name">Owner Name</option>
                         <option value="where">Where</option>
                         <option value="when" selected>When</option>
                         <option value="current_user_number">Current People Number</option>
@@ -56,10 +56,10 @@
                     <input type="text" id="search" name="search">
                     <button id="submitSearch">Search</button>
                 </div>
-            </div>
-        {% if posts.length == 0 %}
+            </div id="postList">
+            {% if posts.length == 0 %}
             <h1>There is no Post</h1>
-        {% else %}
+            {% else %}
             {% for post in posts %}
             <div class="card">
                 <div class="cardProfile">
@@ -97,7 +97,7 @@ $(document).ready(function() {
               searchVal: searchVal},
       method: "GET", 
       success: function(response) {
-
+        
       },
       error: function(error) {
         console.error(error);
@@ -117,7 +117,7 @@ $(document).ready(function() {
               searchVal: searchVal},
       method: "GET", 
       success: function(response) {
-
+        location.reload();
       },
       error: function(error) {
         console.error(error);
