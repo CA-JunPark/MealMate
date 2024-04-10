@@ -156,7 +156,7 @@ class MyMeals(APIView):
         myPosts = []
         
         for post in posts:
-            if post.when > datetime.now().time():
+            if datetime.strptime(post.when[:-3].replace(" ", "").replace("-", "").replace(":", ""), "%Y%m%d%H%M") > datetime.now():
                 if user.email in post.current_users:
                     ownerObject = Account.objects.get(email=post.owner)
                     myPosts.append(dict(id=post.id,

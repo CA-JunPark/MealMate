@@ -57,48 +57,115 @@
                     <input type="text" id="search" name="search">
                     <button id="submitSearch">Search</button>
                 </div>
-            </div id="postList">
-            {% if posts.length == 0 %}
-            <h1>There is no Post</h1>
-            {% else %}
-            {% for post in posts %}
-            <div class="card">
-                <div class="cardProfile">
-                    <a href="{% url 'profile'%}?userEmail={{post.owner}}"><img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px"></a> <!--new class for the photo in post-->
-                    <p style="margin:11px auto">{{post.owner_name}}</p>
-                </div>
-                <div class="cardInfo">
-                    <p>Where: {{post.where}}</p>
-                    <p>When: {{post.when}}</p>
-                    <p>{{post.current_user_number}} / {{post.max_user_num}}</p>
-                    <div class="cardMoreInfoContainer">
-                        <a href="{% url 'postMoreInfo'%}?id={{post.id}}"><button class="cardMoreInfoButton">More Info</button></a>
-                    </div>
-                </div>
             </div>
-            {% endfor %}
-        {% endif %}
+            <div id='postList'>
+                {% if posts.length == 0 %}
+                <h1>There is no Post</h1>
+                {% else %}
+                    {% for post in posts %}
+                    <div class="card">
+                        <div class="cardProfile">
+                            <a href="{% url 'profile'%}?userEmail={{post.owner}}"><img src={{post.photo}} class="userProfilePicPost", style="width=150px; height=150px"></a> <!--new class for the photo in post-->
+                            <p style="margin:11px auto">{{post.owner_name}}</p>
+                        </div>
+                        <div class="cardInfo">
+                            <p>Where: {{post.where}}</p>
+                            <p>When: {{post.when}}</p>
+                            <p>{{post.current_user_number}} / {{post.max_user_num}}</p>
+                            <div class="cardMoreInfoContainer">
+                                <a href="{% url 'postMoreInfo'%}?id={{post.id}}"><button class="cardMoreInfoButton">More Info</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
-         
         <div class="footer">
             <a href="{% url 'createPost'%}"><button class="makePostButton">Make Post</button></a>
         </div>
     </body>
 </html>
 <script>
+var isUp = true;
 $(document).ready(function() {
   $("#sort").change(function() {
     const sortVal = $(this).val();
     const searchBy = document.getElementById("searchBy").value;
     const searchVal = document.getElementById("search").value;
+    console.log(searchBy)
     $.ajax({
-      url: "{% url "home" %}",
+      url: "/searchPost/",
       data: { sortVal: sortVal,
-              serachBy: searchBy,
+              searchBy: searchBy,
+              isUp: isUp,
               searchVal: searchVal},
       method: "GET", 
       success: function(response) {
-        
+        console.log("SEARCH"); // Optional: Log receiving the response
+        var postList = document.getElementById("postList");
+        postList.innerHTML = "";
+        for (const post of response) {
+    
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            const cardProfile = document.createElement("div");
+            cardProfile.classList.add("cardProfile");
+
+            const ownerProfileLink = document.createElement("a");
+            ownerProfileLink.href = `{% url 'profile' %}?userEmail=${post.owner}`;
+
+            const userProfilePic = document.createElement("img");
+            userProfilePic.classList.add("userProfilePicPost");
+            userProfilePic.style.width = "150px";
+            userProfilePic.style.height = "150px";
+            userProfilePic.src = post.photo;
+
+            const ownerName = document.createElement("p");
+            ownerName.style.margin = "11px auto";
+            ownerName.textContent = post.owner_name; 
+
+            const cardInfo = document.createElement("div");
+            cardInfo.classList.add("cardInfo");
+
+            const whereInfo = document.createElement("p");
+            whereInfo.textContent = `Where: ${post.where}`; 
+
+            const whenInfo = document.createElement("p");
+            whenInfo.textContent = `When: ${post.when}`; 
+
+            const userCountInfo = document.createElement("p");
+            userCountInfo.textContent = `${post.current_user_number} / ${post.max_user_num}`; 
+
+            const cardMoreInfoContainer = document.createElement("div");
+            cardMoreInfoContainer.classList.add("cardMoreInfoContainer");
+
+            const moreInfoButton = document.createElement("a");
+            moreInfoButton.href = `{% url 'postMoreInfo' %}?id=${post.id}`;
+
+            const moreInfoButtonText = document.createElement("button");
+            moreInfoButtonText.textContent = "More Info";
+            moreInfoButtonText.classList.add("cardMoreInfoButton");
+
+            moreInfoButton.appendChild(moreInfoButtonText); 
+            cardMoreInfoContainer.appendChild(moreInfoButton); 
+
+            cardProfile.appendChild(ownerProfileLink);
+            ownerProfileLink.appendChild(userProfilePic);
+            cardProfile.appendChild(ownerName);
+
+            cardInfo.appendChild(whereInfo);
+            cardInfo.appendChild(whenInfo);
+            cardInfo.appendChild(userCountInfo);
+            cardInfo.appendChild(cardMoreInfoContainer);
+
+            card.appendChild(cardProfile);
+            card.appendChild(cardInfo);
+
+            postList.appendChild(card);
+        }
+
       },
       error: function(error) {
         console.error(error);
@@ -106,41 +173,28 @@ $(document).ready(function() {
     });
   });
 
-  $("#search").click(function() {
-    const sortVal = document.getElementById("sort").val();
-    const searchBy = document.getElementById("searchBy").value;
-    const searchVal = document.getElementById("search").value;
-
-    $.ajax({
-      url: "{% url "home" %}",
-      data: { sortVal: sortVal,
-              serachBy: searchBy,
-              searchVal: searchVal},
-      method: "GET", 
-      success: function(response) {
-        location.reload();
-      },
-      error: function(error) {
-        console.error(error);
-      }
-    });
+  $("#submitSearch").click(function() {
+    console.log("search click")
+    $('#sort').change();
   });
 
-  // TODO change id name
-  $("#search-input").keypress(function(event){
+  $("#search").keypress(function(event){
     if (event.which === 13) { // Enter key has a keycode of 13
-      $("#search").click();
-    }
+      $('#sort').change();
+    };
   });
   
   $("#ascendingButton").click(function(){
     var button = $(this);
   
     if (button.html() == "&nbsp;⇧&nbsp;") {
-        button.html("&nbsp;⇩&nbsp;"); // Change to down arrow
+      button.html("&nbsp;⇩&nbsp;"); // Change to down arrow
+      isUp = true;
     } else if (button.html() == "&nbsp;⇩&nbsp;") {
       button.html("&nbsp;⇧&nbsp;"); // Change to up arrow
-    }
+      isUp = false;
+    };
+    $('#sort').change();
   });
 });
 
