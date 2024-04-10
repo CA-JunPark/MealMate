@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from post.models import Post
 from account.models import Account
-import datetime
+from datetime import datetime
 
 class Home(APIView):
     def get(self, request):
@@ -33,7 +33,7 @@ class Home(APIView):
         
         for post in posts_objects:
             # if current time is before post.when
-            if post.when > datetime.datetime.now().time():
+            if datetime.strptime(post.when[:-3].replace(" ", "").replace("-", "").replace(":", ""), "%Y%m%d%H%M") > datetime.now():
                 owner_object = Account.objects.get(email=post.owner)
                 posts.append(dict(id = post.id, 
                                 owner=post.owner, 
@@ -47,11 +47,9 @@ class Home(APIView):
                                 when=post.when))
             else: # delete posts that are over
                 post.delete()
-        
         # sort 
         if sortVal is None:
             posts = sorted(posts, key=lambda item: item["when"], reverse=False)
         else:
-            print(sortVal)
             posts = sorted(posts, key=lambda item: item[sortVal], reverse=False)
         return render(request, 'mealmate/home.html', context={'posts': posts, 'user': user_objects})

@@ -5,6 +5,7 @@ from .models import Post
 from account.models import Account
 from datetime import datetime
 from django.http import JsonResponse
+import logging
 
 class CreatePost(APIView):
     def get(self, request):
@@ -27,9 +28,10 @@ class CreatePost(APIView):
 
         if not owner or not where or not when or not max_user_num:
             return Response(status=500, data=dict(message='Cannot have blank'))
-        time = datetime.strptime(when, "%Y%m%d%H%M").time()
         
-        if time < datetime.now().time():
+        time = datetime.strptime(when, "%Y%m%d%H%M")
+        
+        if time < datetime.now():
             return Response(status=500, data=dict(message='Please set time in the future'))
         
         # get all this user's meals
@@ -41,16 +43,15 @@ class CreatePost(APIView):
                 myPosts.append(p)
         # compare each time then reject if within 30min
         
-        # t2_s = time.hour * 3600 + time.minute * 60 + time.second
-        # for mp in myPosts:
-        #     t1 = mp.when
-        #     t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
-        
-        #     if abs(t1_s - t2_s) < 1800:
-        #         return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
-
-        Post.objects.create(owner=owner, ownerName=ownerName, where=where, when=when, current_users=owner,max_user_num=max_user_num, Note=note)
-        
+        t2_s = time.hour * 3600 + time.minute * 60 + time.second
+        for mp in myPosts:
+            t1 = datetime.strptime(mp.when[:-3].replace(" ", "").replace("-", "").replace(":", ""), "%Y%m%d%H%M")
+            if time.date() == t1.date():
+                t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
+                if abs(t1_s - t2_s) < 1800:
+                    return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
+        new = Post.objects.create(owner=owner, ownerName=ownerName, where=where, when=time, current_users=owner,max_user_num=max_user_num, Note=note)
+        print(new.when)
         return Response(status=200, data=dict(message="Posted"))
                         
 class PostMoreInfo(APIView):
