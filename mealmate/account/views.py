@@ -16,6 +16,8 @@ class CreateAccount(APIView):
         password = request.data.get('password', None)
         confirmPW = request.data.get('confirmPW', None)
         gender = request.data.get('gender', None)
+        country = request.data.get('country', None)
+        print(country)
         language = request.data.get('language', None)
         year = request.data.get('year', None)
         year = int(year)
@@ -42,6 +44,7 @@ class CreateAccount(APIView):
                                email=email, 
                                password = make_password(password),
                                gender=gender,
+                               country=country,
                                language=language,
                                year=year,
                                major=major,
