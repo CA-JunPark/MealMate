@@ -29,7 +29,6 @@ class CreatePost(APIView):
             return Response(status=500, data=dict(message='Cannot have blank'))
         
         time = datetime.strptime(when, "%Y%m%d%H%M")
-        
         if time < datetime.now():
             return Response(status=500, data=dict(message='Please set time in the future'))
         
@@ -49,8 +48,8 @@ class CreatePost(APIView):
                 t1_s = t1.hour * 3600 + t1.minute * 60 + t1.second
                 if abs(t1_s - t2_s) < 1800:
                     return Response(status=500, data=dict(message='You are in the another meal that is close to this'))
-        new = Post.objects.create(owner=owner, ownerName=ownerName, where=where, when=time, current_users=owner,max_user_num=max_user_num, Note=note)
-        print(new.when)
+        Post.objects.create(owner=owner, ownerName=ownerName, where=where, when=time, current_users=owner,max_user_num=max_user_num, Note=note)
+        
         return Response(status=200, data=dict(message="Posted"))
                         
 class PostMoreInfo(APIView):

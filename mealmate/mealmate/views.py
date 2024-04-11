@@ -50,7 +50,6 @@ class Home(APIView):
 
 
 def searchPost(request):
-    print("SEARCH2")
     sortVal = request.GET.get('sortVal')
     searchBy = request.GET.get('searchBy')
     searchVal = request.GET.get('searchVal')
@@ -62,10 +61,9 @@ def searchPost(request):
         isUp = False
 
     posts_objects = {}
-    print(searchBy)
+    
     if searchBy is None:
         searchBy = "ownerName"
-    print(searchVal)
     if searchVal == "":
         posts_objects = Post.objects.all()
     else:
