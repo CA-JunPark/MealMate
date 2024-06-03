@@ -1,13 +1,13 @@
 # CMPT 375: Human Computer Interaction Design
 
 ## TEAM: Bitzilla 
-Jun Park
+[Jun Park](https://github.com/CA-JunPark)
 
-Isaac Shoma 
+[Isaac Shoma](https://github.com/isaacshoma)
 
-Dominic Nootebos 
+[Dominic Nootebos](https://github.com/dominoot11)
 
-Josh Boelema 
+[Josh Boelema](https://github.com/JoshBoels?query=cskoko5786%40gmail.com) 
 
 # Development Environment
 <img src="ScreenShots\web_dev.png"> 
