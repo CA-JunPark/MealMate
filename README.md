@@ -7,7 +7,7 @@ Dominic Nootebos
 Josh Boelema
 
 # Development Environment
-![Web Development](ScreenShots\web_dev.png)
+<img src="ScreenShots\web_dev.png"> 
 URL: (Undeploied Currently)
 ## Features: 
 sign in, login, sign out, create post, search posts, sort posts, edit post, join post, leave post, view profile.
