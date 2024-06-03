@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="ScreenShots\login.png" width="50%" height="50%"> 
+    <img src="ScreenShots\login.png"> 
     <p align="center">
         Login 
     </p>
