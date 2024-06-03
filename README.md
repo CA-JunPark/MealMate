@@ -12,6 +12,7 @@ Josh Boelema
 # Development Environment
 <img src="ScreenShots\web_dev.png"> 
 URL: (Undeploied Currently)
+
 ## Features: 
 sign in, login, sign out, create post, search posts, sort posts, edit post, join post, leave post, view profile.
 
