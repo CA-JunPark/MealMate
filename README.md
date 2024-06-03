@@ -2,9 +2,12 @@
 
 ## TEAM: Bitzilla 
 Jun Park
-Isaac Shoma
-Dominic Nootebos
-Josh Boelema
+
+Isaac Shoma 
+
+Dominic Nootebos 
+
+Josh Boelema 
 
 # Development Environment
 <img src="ScreenShots\web_dev.png"> 
